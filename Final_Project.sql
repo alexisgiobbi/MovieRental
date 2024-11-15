@@ -38,3 +38,37 @@ INSERT INTO Rental (rental_id, customer_id, movie_id, rental_date, return_date) 
 (8, 8, 108, '2024-11-08', '2024-11-12'),
 (9, 9, 109, '2024-11-09', '2024-11-13'),
 (10, 10, 110, '2024-11-10', '2024-11-14');
+
+CREATE TABLE Employee (
+    employee_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    store_id INT,
+    position VARCHAR(50),
+    FOREIGN KEY (store_id) REFERENCES Store(store_id)
+);
+
+INSERT INTO Employee (employee_id, first_name, last_name, store_id, position) VALUES
+(1, 'Evan', 'Blue', 2, 'Customer Support'),
+(2, 'Fiona', 'Red', 4, 'Cashier'),
+(3, 'Hannah', 'Silver', 1, 'Customer Support'),
+(4, 'Alice', 'White', 1, 'Assistant Manager'),
+(5, 'Bob', 'Black', 3, 'Customer Support'),
+(6, 'Charlie', 'Green', 5, 'Manager'),
+(7, 'Jane', 'Johnson', 2, 'Cashier'),
+(8, 'George', 'Gold', 4, 'Assistant Manager'),
+(9, 'Diana', 'Smith', 3, 'Manager'),
+(10, 'John', 'Brown', 5, 'Cashier');
+
+CREATE TABLE Store (
+    store_id INT PRIMARY KEY,
+    store_name VARCHAR(100),
+    address VARCHAR(255)
+);
+INSERT INTO Store (store_id, store_name, address) VALUES
+(1, 'Downtown Movie Rentals', '123 Main St, Springfield, IL'),
+(2, 'Uptown Movie Rentals', '456 Elm St, Springfield, IL'),
+(3, 'Suburban Movie Rentals', '789 Oak St, Springfield, IL'),
+(4, 'City Center Movie Rentals', '101 Pine St, Springfield, IL'),
+(5, 'Westside Movie Rentals', '202 Maple St, Springfield, IL');
+
