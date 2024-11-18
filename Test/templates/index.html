@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Rental System</title>
+</head>
+<body>
+    <h1>Available Movies</h1>
+    <ul>
+        {% for movie in movies %}
+            <li>{{ movie.title }} ({{ movie.release_year }}) - {{ movie.genre }}</li>
+        {% endfor %}
+    </ul>
+
+    <h1>Welcome to our fabulous Movie Rental System</h1>
+    <div>
+        <a href="/employee-login">Login as Employee</a>
+    </div>
+    <div>
+        <a href="/customer-signup">Register as New Customer</a>
+    </div>
+
+    <h1>Dash shortcut</h1>
+    <div>
+        <a href="/employee-dashboard">Employee Dashboard</a>
+    </div>
+    <div>
+        <a href="/customer-dashboard">Customer Dashboard</a>
+    </div>
+</body>
+</html>
+
