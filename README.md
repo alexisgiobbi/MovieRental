@@ -21,3 +21,8 @@ virtual envrionement setup to avoid conflicts with other Python projects
 ### app.py
 
 creates Flask application for _init_.py and runs app locally
+
+*Required package installs:** pip install flask / pip install flask-sqlalchemy / pip install pymysql
+
+
+
