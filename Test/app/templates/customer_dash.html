@@ -7,7 +7,81 @@
 </head>
 <body>
     <h1>Customer Dashboard</h1>
-    <p>Welcome, customer! Your dashboard is under construction.</p>
+    
+    <!-- Browse Movies by Store -->
+    <h2>Browse Movies by Store</h2>
+    <form method="POST" action="/customer-dashboard">
+        <label for="store_id">Select a Store:</label>
+        <select id="store_id" name="store_id" required>
+            <option value="" disabled selected>Choose a store</option>
+            {% for store in stores %}
+            <option value="{{ store.store_id }}" {% if store_id and store.store_id == store_id|int %}selected{% endif %}>
+                {{ store.store_name }}
+            </option>
+            {% endfor %}
+        </select>
+        <button type="submit">Browse</button>
+    </form>
+
+    <!-- Search Movies -->
+    <h2>Search for a Movie</h2>
+    <form method="POST" action="/customer-dashboard">
+        <input type="text" name="search" placeholder="Search by title, actor, or actress" value="{{ search_term or '' }}" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Results Section -->
+    {% if search_term %}
+    <h2>Search Results for "{{ search_term }}"</h2>
+    {% elif store_id %}
+    <h2>Movies in Store {{ store_id }}</h2>
+    {% endif %}
+    
+    {% if movies %}
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Genre</th>
+                <th>Actor</th>
+                <th>Actress</th>
+                <th>Director</th>
+                <th>Maturity Rating</th>
+                <th>Release Year</th>
+                <th>Length</th>
+                <th>Country of Origin</th>
+                <th>IMDB Rating</th>
+                <th>Available Copies</th>
+                {% if search_term %}
+                <th>Store</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for movie in movies %}
+            <tr>
+                <td>{{ movie.title }}</td>
+                <td>{{ movie.genre }}</td>
+                <td>{{ movie.actor }}</td>
+                <td>{{ movie.actress }}</td>
+                <td>{{ movie.director }}</td>
+                <td>{{ movie.maturity_rating }}</td>
+                <td>{{ movie.release_year }}</td>
+                <td>{{ movie.length_of_movie }}</td>
+                <td>{{ movie.country_of_origin }}</td>
+                <td>{{ movie.imbd_rating }}</td>
+                <td>{{ movie.available_copies }}</td>
+                {% if search_term %}
+                <td>{{ movie.store_name }}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No movies available{% if search_term %} for "{{ search_term }}"{% else %} in this store{% endif %}.</p>
+    {% endif %}
+    
     <p><a href="/">Back to Home</a></p>
 </body>
 </html>
