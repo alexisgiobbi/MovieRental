@@ -1,4 +1,5 @@
 from flask import Flask
+import logging
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -12,6 +13,9 @@ def create_app():
     app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN']= True
 
     db.init_app(app)
+
+    logging.basicConfig()
+    logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
     # Register blueprints
     from .routes import main
