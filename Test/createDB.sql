@@ -21,7 +21,7 @@ CREATE TABLE Store (
 );
 
 CREATE TABLE Inventory (
-	inventory_id INTEGER PRIMARY KEY,
+	inventory_id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	movie_id INTEGER,
 	available_copies INTEGER NOT NULL,
 	store_id INTEGER NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE Employee (
 );
 
 CREATE TABLE Rental (
-    rental_id INT PRIMARY KEY,
+    rental_id INT NOT NULL AUTO_INCREMENT,
     customer_id INT NOT NULL,
     movie_id INT NOT NULL,
     store_id INT NOT NULL,
@@ -71,4 +71,3 @@ CREATE TABLE Customer_Review (
 	FOREIGN KEY(movie_id) REFERENCES Movie(movie_id),
 	FOREIGN KEY(customer_id) REFERENCES Customer(customer_id)
 );
-
