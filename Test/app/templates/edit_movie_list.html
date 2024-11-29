@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Movie List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="/edit-movie-list">Edit Movie List</a></li>
+            <li><a href="/see-rentals">See Rentals</a></li>
+        </ul>
+    </nav>
+
+    <h1 class="center">Edit Movie List</h1>
+    <p class="center"><a href="/add-movie" class="add-movie-button">Add New Movie</a></p>
+
+    <table class="movies-table">
+        <thead>
+            <tr>
+                <th>Movie ID</th>
+                <th>Title</th>
+                <th>Genre</th>
+                <th>Actor</th>
+                <th>Actress</th>
+                <th>Director</th>
+                <th>Maturity Rating</th>
+                <th>Release Year</th>
+                <th>Length (min)</th>
+                <th>Country of Origin</th>
+                <th>IMDB Rating</th>
+                <th>Availability</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movie in movies %}
+            <tr>
+                <td>{{ movie.movie_id }}</td>
+                <td>{{ movie.title }}</td>
+                <td>{{ movie.genre }}</td>
+                <td>{{ movie.actor or 'N/A' }}</td>
+                <td>{{ movie.actress or 'N/A' }}</td>
+                <td>{{ movie.director }}</td>
+                <td>{{ movie.maturity_rating }}</td>
+                <td>{{ movie.release_year }}</td>
+                <td>{{ movie.length_of_movie }}</td>
+                <td>{{ movie.country_of_origin }}</td>
+                <td>{{ movie.imbd_rating }}</td>
+                <td>{{ movie.availability or 'Not Available' }}</td>
+            </tr>
+            <tr>
+                <td colspan="12" class="center">
+                    <div class="center">
+                        <a href="/edit-movie/{{ movie.movie_id }}" class="edit-button">Edit Movie Details</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p class="center"><a href="/">Back to Home</a></p>
+</body>
+</html>

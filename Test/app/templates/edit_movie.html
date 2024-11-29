@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Movie</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="/edit-movie-list">Edit Movie List</a></li>
+            <li><a href="/see-rentals">See Rentals</a></li>
+        </ul>
+    </nav>
+
+    <h1 class="center">Edit Movie: {{ movie.title }}</h1>
+
+    <!-- Edit Store Availability -->
+    <form method="POST" action="/edit-movie/{{ movie.movie_id }}" class="registration-form">
+        <ul>
+            {% for store in stores %}
+            <li>
+                <label>{{ store.store_name }}:</label>
+                <input type="hidden" name="store_id" value="{{ store.store_id }}">
+                <input type="number" name="available_copies" value="{{ store.available_copies }}" min="0" required>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Edit Movie Form -->
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" value="{{ movie.title }}" required>
+
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre" name="genre" value="{{ movie.genre }}" required>
+
+        <label for="actor">Actor:</label>
+        <input type="text" id="actor" name="actor" value="{{ movie.actor or '' }}" placeholder="Optional">
+
+        <label for="actress">Actress:</label>
+        <input type="text" id="actress" name="actress" value="{{ movie.actress or '' }}" placeholder="Optional">
+
+        <label for="director">Director:</label>
+        <input type="text" id="director" name="director" value="{{ movie.director }}" required>
+
+        <label for="maturity_rating">Maturity Rating:</label>
+        <input type="text" id="maturity_rating" name="maturity_rating" value="{{ movie.maturity_rating }}" required>
+
+        <label for="release_year">Release Year:</label>
+        <input type="number" id="release_year" name="release_year" value="{{ movie.release_year }}" required>
+
+        <label for="length_of_movie">Length (minutes):</label>
+        <input type="number" id="length_of_movie" name="length_of_movie" value="{{ movie.length_of_movie }}" required>
+
+        <label for="country_of_origin">Country of Origin:</label>
+        <input type="text" id="country_of_origin" name="country_of_origin" value="{{ movie.country_of_origin }}" required>
+
+        <label for="imbd_rating">IMDB Rating:</label>
+        <input type="number" step="0.1" id="imbd_rating" name="imbd_rating" value="{{ movie.imbd_rating }}" required>
+
+        <button type="submit" class="save-button">Save Changes</button>
+    </form>
+
+    <p class="center"><a href="/edit-movie-list">Back to Movie List</a></p>
+</body>
+</html>

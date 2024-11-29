@@ -3,31 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Rental System</title>
+    <title>Movie Rental</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Available Movies</h1>
-    <ul>
-        {% for movie in movies %}
-            <li>{{ movie.title }} ({{ movie.release_year }}) - {{ movie.genre }}</li>
-        {% endfor %}
-    </ul>
+    <div class="banner">
+        <h1>Welcome to Illinois Movie Rentals</h1>
+    </div>
+    <div class="split-screen">
+        <!-- Employee Section -->
+        <div class="half">
+            <h2>I'm an employee</h2>
+            <p>Login with your employee username and password to access movie rental details, add new movies, and edit existing movies.</p>
+            <button><a href="/employee-login">Login</a></button>
+        </div>
+        <!-- User Section -->
+        <div class="half">
+            <h2>I'm a customer</h2>
+            <p>Sign up as a new user to browse and search available movies, view movie details, and checkout desired movies.</p>
+            <button><a href="/customer-signup">Sign Up</a></button>
+        </div>
+    </div>
 
-    <h1>Welcome to our fabulous Movie Rental System</h1>
-    <div>
-        <a href="/employee-login">Login as Employee</a>
-    </div>
-    <div>
-        <a href="/customer-signup">Register as New Customer</a>
-    </div>
-
-    <h1>Dash shortcut</h1>
-    <div>
-        <a href="/employee-dashboard">Employee Dashboard</a>
-    </div>
-    <div>
-        <a href="/customer-dashboard">Customer Dashboard</a>
-    </div>
 </body>
 </html>
 

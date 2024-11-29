@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Movies</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="/all-movies">All Movies</a></li>
+            <li><a href="/browse-by-store">Browse by Store</a></li>
+            <li><a href="/browse-top-movies">Browse Top Movies</a></li>
+            <li><a href="/search">Search</a></li>
+            <li><a href="/my-rentals">My Rentals</a></li>
+        </ul>
+    </nav>
+    
+    <h1 class="center">Search for a Movie</h1>
+    <form method="POST" action="/search" class="search">
+        <input type="text" name="search" placeholder="Search by title, actor, actress, director, or genre" value="{{ search_term or '' }}" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if search_term %}
+    <h2>Search Results for "{{ search_term }}"</h2>
+    {% endif %}
+
+    {% if movies %}
+    <table class="movies-table">
+        <thead>
+            <tr>
+                <th>Movie Name</th>
+                <th>Available At</th>
+                <th>Details</th>
+                <th>Rent</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movie in movies %}
+            <tr class="movie-row">
+                <td>{{ movie.title }}</td>
+                <td>
+                    {% if movie.stores %}
+                    <label for="store_id">Select Store:</label>
+                    <select name="store_id" form="rent-form-{{ movie.movie_id }}" required>
+                        {% for store in movie.stores %}
+                        <option value="{{ store.store_id }}">{{ store.store_name }}</option>
+                        {% endfor %}
+                    </select>
+                    {% else %}
+                    <p>Not available at any store</p>
+                    {% endif %}
+                </td>
+                <td>
+                    <button class="details-button" onclick="toggleDetails(this)">Details</button>
+                </td>
+                <td>
+                    {% if movie.stores %}
+                    <form id="rent-form-{{ movie.movie_id }}" method="POST" action="/rent-movie">
+                        <input type="hidden" name="movie_id" value="{{ movie.movie_id }}">
+                        <button type="submit" class="rent-button">Rent</button>
+                    </form>
+                    {% else %}
+                    <button class="rent-button" disabled>Not Available</button>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr class="details-row" style="display: none;">
+                <td colspan="4">
+                    <div class="movie-details">
+                        <p><strong>Genre:</strong> {{ movie.genre }}</p>
+                        <p><strong>Actor:</strong> {{ movie.actor }}</p>
+                        <p><strong>Actress:</strong> {{ movie.actress }}</p>
+                        <p><strong>Director:</strong> {{ movie.director }}</p>
+                        <p><strong>Maturity Rating:</strong> {{ movie.maturity_rating }}</p>
+                        <p><strong>Release Year:</strong> {{ movie.release_year }}</p>
+                        <p><strong>Length:</strong> {{ movie.length_of_movie }} minutes</p>
+                        <p><strong>Country of Origin:</strong> {{ movie.country_of_origin }}</p>
+                        <p><strong>IMDB Rating:</strong> {{ movie.imbd_rating }}</p>
+
+                        <h3>Customer Reviews</h3>
+                        {% if movie.customer_review_id %}
+                        <ul>
+                            <li>
+                                <p><strong>Rating:</strong> {{ movie.rating }}/5</p>
+                                <p>{{ movie.written_review }}</p>
+                                <p><small>By Customer {{ movie.customer_id }} on {{ movie.review_date }}</small></p>
+                            </li>
+                        </ul>
+                        {% else %}
+                        <p>No reviews yet for this movie.</p>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% elif search_term %}
+    <p>No movies available for "{{ search_term }}"</p>
+    {% endif %}
+
+    <p class="center"><a href="/">Back to Home</a></p>
+
+    <script>
+        function toggleDetails(button) {
+            const detailsRow = button.closest('tr').nextElementSibling;
+            if (detailsRow.style.display === 'none') {
+                detailsRow.style.display = 'table-row';
+                button.textContent = 'Hide Details';
+            } else {
+                detailsRow.style.display = 'none';
+                button.textContent = 'Details';
+            }
+        }
+    </script>
+</body>
+</html>

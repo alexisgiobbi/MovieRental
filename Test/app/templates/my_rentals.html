@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Rentals</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="/all-movies">All Movies</a></li>
+            <li><a href="/browse-by-store">Browse by Store</a></li>
+            <li><a href="/browse-top-movies">Browse Top Movies</a></li>
+            <li><a href="/search">Search</a></li>
+            <li><a href="/my-rentals">My Rentals</a></li>
+        </ul>
+    </nav>
+
+    <h1 class="center">My Rentals</h1>
+
+    {% if rentals %}
+    <table class="rentals-table">
+        <thead>
+            <tr>
+                <th>Rental ID</th>
+                <th>Movie Title</th>
+                <th>Store Name</th>
+                <th>Rental Date</th>
+                <th>Return Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rental in rentals %}
+            <tr>
+                <td>{{ rental.rental_id }}</td>
+                <td>{{ rental.movie_title }}</td>
+                <td>{{ rental.store_name }}</td>
+                <td>{{ rental.rental_date }}</td>
+                <td>
+                    {% if rental.return_date %}
+                        {{ rental.return_date }}
+                    {% else %}
+                        Not Returned
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="center">You have no rentals at the moment.</p>
+    {% endif %}
+
+    <p class="center"><a href="/">Back to Home</a></p>
+</body>
+</html>

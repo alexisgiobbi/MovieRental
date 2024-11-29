@@ -2,12 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Employee Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Employee Dashboard</h1>
-    <p>Welcome, employee! Your dashboard is under construction.</p>
-    <p><a href="/">Back to Home</a></p>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="/edit-movie-list">Edit Movie List</a></li>
+            <li><a href="/see-rentals">See Rentals</a></li>
+        </ul>
+    </nav>
+
+    <div class="center">
+        <h1>Welcome to the Employee Dashboard</h1>
+        <p>Select an option from the navigation bar to manage movies or view rentals.</p>
+    </div>
+    <p class="center"><a href="/">Back to Home</a></p>
 </body>
 </html>
